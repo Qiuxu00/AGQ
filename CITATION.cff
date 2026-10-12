@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Please cite the AGQ manuscript when using the method or its reported results. Publication metadata is pending."
+type: software
+repository-code: "https://github.com/Qiuxu00/AGQ"
+title: "AGQ: Action-Guided Ultra-Low-Bit Quantization for Vision-Language-Action Models"
+authors:
+  - family-names: Qiu
+    given-names: Xuhong
+  - family-names: Wu
+    given-names: Zhuoyu
+  - family-names: Zheng
+    given-names: Qiawei
+  - family-names: Ou
+    given-names: Wenhui
+  - family-names: Fang
+    given-names: Wenqi
+  - family-names: Phan
+    given-names: Raphael C.W-
+abstract: >-
+  AGQ combines action sensitivity and a measured weight-recovery cost proxy
+  for matrix-wise bit allocation, per-channel calibration, grouped lossless
+  coding, and block-wise recovery in vision-language-action models.
+keywords:
+  - vision-language-action
+  - quantization
+  - mixed precision
+  - robotics
+  - model compression

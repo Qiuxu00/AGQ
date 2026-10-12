@@ -1,0 +1,13 @@
+# Tested local component/matrix environment, not an OpenVLA-OFT GPU lockfile.
+# First install the CPU PyTorch build from its official index when desired:
+# python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+numpy==2.2.6
+scipy==1.15.3
+torch==2.6.0
+pytest==8.3.5
+hqq==0.2.8.post1
+optimum-quanto==0.2.7
+transformers==4.48.3
+huggingface-hub==0.28.1
+tokenizers==0.21.0
+accelerate==1.15.0

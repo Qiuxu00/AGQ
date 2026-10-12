@@ -1,0 +1,6 @@
+# Preserve byte-level result digests and original research kernel sources.
+# Git may still display textual diffs; it must not translate line endings.
+* -text
+*.pdf binary
+*.png binary
+*.jpg binary

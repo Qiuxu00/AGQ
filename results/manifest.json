@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "sha256": {
+    "results/allocations.json": "408f903b035e41424b791759747913f6e4b2cfc98b401f393b3752df18c8ca4d",
+    "results/performance.json": "2801227024de43992128b3828104ba439af1c9c37f44d46d3e7d88dd6d42f08f",
+    "results/published_baselines.json": "9324c6f7c3c22eee1df6a289488428498570fa6534c0ae3f72cf161814e78754",
+    "results/quality.json": "146c770b4a5202fa1453debdaea80f0acdae95c34ebf47b45fcb0a4d9b7e9ff1",
+    "results/sources.json": "6cba8e3f59a3af798912ee8d8f69b7cb0da942694d12dc70e2004824a36168d4",
+    "results/tasks.csv": "75db30b8af24c73d9e57271d644e822087407dfe6df8198eeeceb5403d0ab418",
+    "examples/cases/catalog.json": "911f3719b59ff282034a3b2118734eed6bac94c57873f1ecbd0592cd7867125f"
+  }
+}

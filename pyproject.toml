@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agq-vla"
+version = "0.1.0"
+description = "Action-guided quantization research tools and reproducible result analysis"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "AGQ authors"}]
+dependencies = ["numpy>=1.26,<3", "scipy>=1.11,<2", "torch>=2.6,<3"]
+
+[project.urls]
+Repository = "https://github.com/Qiuxu00/AGQ"
+Issues = "https://github.com/Qiuxu00/AGQ/issues"
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+hqq = ["hqq==0.2.8.post1", "transformers==4.48.3"]
+quanto = ["optimum-quanto==0.2.7", "transformers==4.48.3"]
+figures = ["matplotlib>=3.8,<4"]
+
+[project.scripts]
+agq = "agq.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"agq.core" = ["native/*.cpp"]
+"agq.runtime" = ["*.cu"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["optional: requires an optional upstream quantization library"]

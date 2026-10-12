@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "evaluation": "matrix_reconstruction_not_robot_task_success",
+  "device": "cpu",
+  "weight_shape": [
+    32,
+    128
+  ],
+  "input_shape": [
+    64,
+    128
+  ],
+  "group_size": 64,
+  "reference": "same float32 source weights and inputs; float64 dense error accumulation",
+  "weights_included": false,
+  "results": [
+    {
+      "method": "rtn",
+      "bits": 4,
+      "weight_mse": 0.009856096709143378,
+      "projection_mse": 1.24811113357912,
+      "projection_relative_l2": 0.09844138632148065,
+      "packed_payload_bytes": 2208,
+      "payload_note": "row-packed codes + FP32 scale + optional uint8 zero",
+      "packages": {
+        "numpy": "2.2.6"
+      }
+    },
+    {
+      "method": "hqq",
+      "bits": 4,
+      "weight_mse": 0.0074242509889490705,
+      "projection_mse": 0.9585485997334644,
+      "projection_relative_l2": 0.08626967481996903,
+      "packed_payload_bytes": null,
+      "payload_note": "not measured; use upstream serialization for physical storage",
+      "packages": {
+        "hqq": "0.2.8.post1"
+      }
+    }
+  ],
+  "data_origin": {
+    "weight": "synthetic",
+    "inputs": "synthetic",
+    "seed": 7
+  }
+}

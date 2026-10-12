@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "evaluation": "matrix_reconstruction_not_robot_task_success",
+  "device": "cpu",
+  "weight_shape": [
+    32,
+    128
+  ],
+  "input_shape": [
+    64,
+    128
+  ],
+  "group_size": 64,
+  "reference": "same float32 source weights and inputs; float64 dense error accumulation",
+  "weights_included": false,
+  "results": [
+    {
+      "method": "rtn",
+      "bits": 8,
+      "weight_mse": 3.468623678017062e-05,
+      "projection_mse": 0.004503936779125399,
+      "projection_relative_l2": 0.0059135358686539,
+      "packed_payload_bytes": 4256,
+      "payload_note": "row-packed codes + FP32 scale + optional uint8 zero",
+      "packages": {
+        "numpy": "2.2.6"
+      }
+    },
+    {
+      "method": "hqq",
+      "bits": 8,
+      "weight_mse": 2.5321273621159503e-05,
+      "projection_mse": 0.003271204435294558,
+      "projection_relative_l2": 0.005039702911136915,
+      "packed_payload_bytes": null,
+      "payload_note": "not measured; use upstream serialization for physical storage",
+      "packages": {
+        "hqq": "0.2.8.post1"
+      }
+    },
+    {
+      "method": "quanto",
+      "bits": 8,
+      "weight_mse": 4.086828409311716e-05,
+      "projection_mse": 0.005018415504851409,
+      "projection_relative_l2": 0.006242152874868091,
+      "packed_payload_bytes": null,
+      "payload_note": "not measured; use upstream serialization for physical storage",
+      "packages": {
+        "optimum-quanto": "0.2.7"
+      }
+    }
+  ],
+  "data_origin": {
+    "weight": "synthetic",
+    "inputs": "synthetic",
+    "seed": 7
+  }
+}

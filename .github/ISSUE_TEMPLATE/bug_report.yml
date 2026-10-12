@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible code or documentation problem.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include a small example and the exact command. Do not attach model weights, credentials, private datasets, or machine connection details.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the expected and observed behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide the command, configuration, and a minimal input when possible.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include operating system, Python, PyTorch, optional backend versions, and GPU/CUDA if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Redact private paths and credentials before pasting logs.
+      render: text

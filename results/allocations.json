@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "source_id": "allocation_count_audit",
+  "count_unit": "target weight matrix",
+  "bitwidth_order": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "matrix_totals": {
+    "vision": 204,
+    "language": 224,
+    "combined": 428
+  },
+  "notes": [
+    "Rows count matrices, not parameters. An average of the four counts is not a weight-bit average.",
+    "W2 lambda rows beyond 0.5 describe allocation solutions, not additional EXP019 evaluations."
+  ],
+  "rows": [
+    {
+      "row_id": "W2p5_lambda_0",
+      "budget": "W2.5",
+      "lambda": 0,
+      "vision": [
+        23,
+        67,
+        63,
+        51
+      ],
+      "language": [
+        31,
+        40,
+        126,
+        27
+      ],
+      "combined": [
+        54,
+        107,
+        189,
+        78
+      ]
+    },
+    {
+      "row_id": "W2p5_lambda_025",
+      "budget": "W2.5",
+      "lambda": 0.25,
+      "vision": [
+        8,
+        91,
+        55,
+        50
+      ],
+      "language": [
+        20,
+        51,
+        137,
+        16
+      ],
+      "combined": [
+        28,
+        142,
+        192,
+        66
+      ]
+    },
+    {
+      "row_id": "W2p5_lambda_05",
+      "budget": "W2.5",
+      "lambda": 0.5,
+      "vision": [
+        6,
+        94,
+        51,
+        53
+      ],
+      "language": [
+        13,
+        56,
+        148,
+        7
+      ],
+      "combined": [
+        19,
+        150,
+        199,
+        60
+      ]
+    },
+    {
+      "row_id": "W2p5_lambda_075",
+      "budget": "W2.5",
+      "lambda": 0.75,
+      "vision": [
+        5,
+        96,
+        45,
+        58
+      ],
+      "language": [
+        9,
+        59,
+        154,
+        2
+      ],
+      "combined": [
+        14,
+        155,
+        199,
+        60
+      ]
+    },
+    {
+      "row_id": "W2p5_lambda_1",
+      "budget": "W2.5",
+      "lambda": 1,
+      "vision": [
+        5,
+        95,
+        47,
+        57
+      ],
+      "language": [
+        2,
+        72,
+        149,
+        1
+      ],
+      "combined": [
+        7,
+        167,
+        196,
+        58
+      ]
+    },
+    {
+      "row_id": "W2_lambda_0",
+      "budget": "W2",
+      "lambda": 0,
+      "vision": [
+        69,
+        42,
+        57,
+        36
+      ],
+      "language": [
+        64,
+        69,
+        81,
+        10
+      ],
+      "combined": [
+        133,
+        111,
+        138,
+        46
+      ]
+    },
+    {
+      "row_id": "W2_lambda_025",
+      "budget": "W2",
+      "lambda": 0.25,
+      "vision": [
+        60,
+        54,
+        59,
+        31
+      ],
+      "language": [
+        47,
+        85,
+        90,
+        2
+      ],
+      "combined": [
+        107,
+        139,
+        149,
+        33
+      ]
+    },
+    {
+      "row_id": "W2_lambda_05",
+      "budget": "W2",
+      "lambda": 0.5,
+      "vision": [
+        55,
+        61,
+        61,
+        27
+      ],
+      "language": [
+        40,
+        98,
+        85,
+        1
+      ],
+      "combined": [
+        95,
+        159,
+        146,
+        28
+      ]
+    },
+    {
+      "row_id": "W2_lambda_075",
+      "budget": "W2",
+      "lambda": 0.75,
+      "vision": [
+        50,
+        69,
+        60,
+        25
+      ],
+      "language": [
+        38,
+        95,
+        90,
+        1
+      ],
+      "combined": [
+        88,
+        164,
+        150,
+        26
+      ]
+    },
+    {
+      "row_id": "W2_lambda_1",
+      "budget": "W2",
+      "lambda": 1,
+      "vision": [
+        49,
+        72,
+        53,
+        30
+      ],
+      "language": [
+        37,
+        97,
+        89,
+        1
+      ],
+      "combined": [
+        86,
+        169,
+        142,
+        31
+      ]
+    }
+  ]
+}

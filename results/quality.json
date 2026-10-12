@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP019",
+  "completed_on": "2026-10-09",
+  "source_id": "closed_loop_final_audit",
+  "model": "OpenVLA-OFT",
+  "device": "RTX3090",
+  "episodes": 6000,
+  "configurations": 10,
+  "suites": [
+    "spatial",
+    "object",
+    "goal",
+    "long"
+  ],
+  "episodes_per_configuration": 600,
+  "episodes_per_suite": 150,
+  "tasks_per_suite": 10,
+  "episodes_per_task": 15,
+  "calibrated": true,
+  "weight_format": "original_packed",
+  "notes": [
+    "Original packed configurations, evaluated without optional lossless coding.",
+    "Each suite contributes equal weight to the overall success rate.",
+    "Historical 60-episode results and literature baselines are excluded.",
+    "W1.5* means W4 vision + W1.5 language; target-weight average is approximately 1.74753 bits."
+  ],
+  "rows": [
+    {
+      "id": "w4",
+      "label": "W4",
+      "vision_budget_bits": 4,
+      "language_budget_bits": 4,
+      "lambda": null,
+      "allocation": "guided",
+      "successes": 586,
+      "episodes": 600,
+      "success_percent": 97.66666666666667,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 146
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 150
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 148
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 142
+        }
+      }
+    },
+    {
+      "id": "w3",
+      "label": "W3",
+      "vision_budget_bits": 3,
+      "language_budget_bits": 3,
+      "lambda": 0.5,
+      "allocation": "guided",
+      "successes": 556,
+      "episodes": 600,
+      "success_percent": 92.66666666666667,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 145
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 150
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 125
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 136
+        }
+      }
+    },
+    {
+      "id": "w25_lambda0",
+      "label": "W2.5 / lambda=0",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": 0,
+      "allocation": "guided",
+      "successes": 395,
+      "episodes": 600,
+      "success_percent": 65.83333333333333,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 116
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 149
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 18
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 112
+        }
+      }
+    },
+    {
+      "id": "w25_lambda025",
+      "label": "W2.5 / lambda=0.25",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": 0.25,
+      "allocation": "guided",
+      "successes": 381,
+      "episodes": 600,
+      "success_percent": 63.5,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 108
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 150
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 17
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 106
+        }
+      }
+    },
+    {
+      "id": "w25",
+      "label": "W2.5 / lambda=0.5",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": 0.5,
+      "allocation": "guided",
+      "successes": 423,
+      "episodes": 600,
+      "success_percent": 70.5,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 120
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 150
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 26
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 127
+        }
+      }
+    },
+    {
+      "id": "w25_lambda075",
+      "label": "W2.5 / lambda=0.75",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": 0.75,
+      "allocation": "guided",
+      "successes": 406,
+      "episodes": 600,
+      "success_percent": 67.66666666666667,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 117
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 147
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 30
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 112
+        }
+      }
+    },
+    {
+      "id": "w25_lambda1",
+      "label": "W2.5 / lambda=1",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": 1,
+      "allocation": "guided",
+      "successes": 400,
+      "episodes": 600,
+      "success_percent": 66.66666666666667,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 113
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 150
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 29
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 108
+        }
+      }
+    },
+    {
+      "id": "w2",
+      "label": "W2",
+      "vision_budget_bits": 2,
+      "language_budget_bits": 2,
+      "lambda": 0.5,
+      "allocation": "guided",
+      "successes": 210,
+      "episodes": 600,
+      "success_percent": 35.0,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 44
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 138
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 2
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 26
+        }
+      }
+    },
+    {
+      "id": "w15",
+      "label": "W1.5*",
+      "vision_budget_bits": 4,
+      "language_budget_bits": 1.5,
+      "lambda": 0.5,
+      "allocation": "guided",
+      "successes": 153,
+      "episodes": 600,
+      "success_percent": 25.5,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 58
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 91
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 0
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 4
+        }
+      }
+    },
+    {
+      "id": "random_w25",
+      "label": "Random W2.5 + calibration",
+      "vision_budget_bits": 2.5,
+      "language_budget_bits": 2.5,
+      "lambda": null,
+      "allocation": "random",
+      "successes": 49,
+      "episodes": 600,
+      "success_percent": 8.166666666666666,
+      "by_suite": {
+        "spatial": {
+          "episodes": 150,
+          "successes": 27
+        },
+        "object": {
+          "episodes": 150,
+          "successes": 18
+        },
+        "goal": {
+          "episodes": 150,
+          "successes": 4
+        },
+        "long": {
+          "episodes": 150,
+          "successes": 0
+        }
+      }
+    }
+  ]
+}

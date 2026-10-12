@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "kind": "measured_aggregate_cases",
+  "notes": "All cases are derived from released numerical summaries; no videos or new rollouts are claimed.",
+  "cases": [
+    {
+      "id": "01",
+      "title": "A high-retention W3 operating point",
+      "configurations": [
+        "w4",
+        "w3"
+      ],
+      "suites_or_scope": [
+        "overall"
+      ],
+      "observation": "W3 retains 556/600 successes (92.7%), compared with 586/600 (97.7%) at W4.",
+      "interpretation": "Use as a quality/storage reference; the 5.0-point difference is descriptive, not a significance test."
+    },
+    {
+      "id": "02",
+      "title": "Spatial: a useful W2.5 regime",
+      "configurations": [
+        "w25"
+      ],
+      "suites_or_scope": [
+        "spatial"
+      ],
+      "observation": "W2.5 reaches 120/150 successes (80.0%) on Spatial.",
+      "interpretation": "The pooled 70.5% average hides meaningful differences between suites."
+    },
+    {
+      "id": "03",
+      "title": "Object: retention at lower bitwidth",
+      "configurations": [
+        "w3",
+        "w25",
+        "w2"
+      ],
+      "suites_or_scope": [
+        "object"
+      ],
+      "observation": "Object achieves 150/150 at W3 and W2.5, and 138/150 (92.0%) at W2.",
+      "interpretation": "A strong Object score does not imply the same retention on other suites."
+    },
+    {
+      "id": "04",
+      "title": "Goal: an explicit low-bit failure case",
+      "configurations": [
+        "w3",
+        "w25",
+        "w2",
+        "w15"
+      ],
+      "suites_or_scope": [
+        "goal"
+      ],
+      "observation": "Goal falls from 125/150 at W3 to 26/150 at W2.5, 2/150 at W2, and 0/150 at W1.5*.",
+      "interpretation": "Inspect failures as well as successes when choosing a budget."
+    },
+    {
+      "id": "05",
+      "title": "Long: guided allocation versus random",
+      "configurations": [
+        "w25",
+        "random_w25"
+      ],
+      "suites_or_scope": [
+        "long"
+      ],
+      "observation": "Guided W2.5 reaches 127/150 successes (84.7%); calibrated random W2.5 reaches 0/150.",
+      "interpretation": "Both configurations include calibration; this comparison does not isolate calibration itself."
+    },
+    {
+      "id": "06",
+      "title": "The full lambda sweep",
+      "configurations": [
+        "w25_lambda0",
+        "w25_lambda025",
+        "w25",
+        "w25_lambda075",
+        "w25_lambda1"
+      ],
+      "suites_or_scope": [
+        "overall"
+      ],
+      "observation": "Success counts are 395, 381, 423, 406, and 400 out of 600 for lambda=0, 0.25, 0.5, 0.75, and 1.",
+      "interpretation": "The tested default lambda=0.5 is 4.7 percentage points above lambda=0 after rounding."
+    },
+    {
+      "id": "07",
+      "title": "An overall winner is not a suite-wise winner",
+      "configurations": [
+        "w25",
+        "w25_lambda075"
+      ],
+      "suites_or_scope": [
+        "goal",
+        "overall"
+      ],
+      "observation": "Lambda=0.75 reaches 30/150 on Goal versus 26/150 for lambda=0.5, while its overall total is 406/600 versus 423/600.",
+      "interpretation": "The best overall setting need not maximize every task family."
+    },
+    {
+      "id": "08",
+      "title": "Calibration cannot rescue arbitrary allocation",
+      "configurations": [
+        "random_w25",
+        "w25"
+      ],
+      "suites_or_scope": [
+        "overall"
+      ],
+      "observation": "Calibrated random W2.5 reaches 49/600 (8.2%); guided W2.5 reaches 423/600 (70.5%).",
+      "interpretation": "This supports informed allocation within the calibrated pipeline, not an independent calibration ablation."
+    },
+    {
+      "id": "09",
+      "title": "Asymmetric extreme compression",
+      "configurations": [
+        "w15",
+        "w2"
+      ],
+      "suites_or_scope": [
+        "spatial",
+        "overall"
+      ],
+      "observation": "W1.5* retains W4 vision and W1.5 language: 153/600 overall, with 58/150 Spatial versus 44/150 at W2.",
+      "interpretation": "W1.5* is approximately 1.75 bits across target weights; quality is not monotonic in every suite."
+    },
+    {
+      "id": "10",
+      "title": "Whole-model storage versus latency",
+      "configurations": [
+        "w15"
+      ],
+      "suites_or_scope": [
+        "performance"
+      ],
+      "observation": "W1.5* changes from 2.656 GB / 250.5 ms without coding to 2.534 GB / 310.4 ms with grouped coding.",
+      "interpretation": "The coded record gives 6.10x complete-model compression and 3.537 GB peak allocation. Coding adds 59.9 ms."
+    },
+    {
+      "id": "11",
+      "title": "Minimum memory and fast decoding are different points",
+      "configurations": [
+        "w15"
+      ],
+      "suites_or_scope": [
+        "alternative_codecs"
+      ],
+      "observation": "W1.5* CODEBOOK001 measures 2.784 GB / 1771.9 ms; CODEBOOK003 measures 3.537 GB / 310.4 ms.",
+      "interpretation": "Do not combine the 2.784 GB minimum with the 310.4 ms latency."
+    },
+    {
+      "id": "12",
+      "title": "Coding overhead depends on the configuration",
+      "configurations": [
+        "w25",
+        "w15"
+      ],
+      "suites_or_scope": [
+        "performance"
+      ],
+      "observation": "The grouped-coded W2.5 record takes 473.9 ms; the grouped-coded W1.5* record takes 310.4 ms.",
+      "interpretation": "Fewer stored bits do not alone determine decoder or full model-action latency."
+    },
+    {
+      "id": "13",
+      "title": "From priorities to 428 matrix assignments",
+      "configurations": [
+        "w25_lambda0",
+        "w25"
+      ],
+      "suites_or_scope": [
+        "allocations"
+      ],
+      "observation": "At W2.5, changing lambda from 0 to 0.5 changes W1/W2/W3/W4 counts from 54/107/189/78 to 19/150/199/60.",
+      "interpretation": "These are matrix counts, not parameter-weighted bit averages."
+    }
+  ]
+}

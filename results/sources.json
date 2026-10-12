@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "prepared_on": "2026-10-12",
+  "description": "SHA-256 digests of source evidence used to prepare the sanitized summaries. Internal experiment paths and machine identifiers are intentionally excluded.",
+  "sources": [
+    {
+      "id": "closed_loop_final_audit",
+      "sha256": "a32718d8dcfb3faa838c9c44b40dd5202327bca943e6cb8896c809a09d9dee5c"
+    },
+    {
+      "id": "literature_table_1",
+      "sha256": "d5c4bed9ed21f426c9ce556db14114baa1bde410d803d8be7858d1648eb12a40"
+    },
+    {
+      "id": "allocation_count_audit",
+      "sha256": "d68942fc2cd62705133f5f4fec9156f922e2890e32e8eb656a5a1f29b9b086df"
+    },
+    {
+      "id": "performance_table_audit",
+      "sha256": "d6d60360b477acba6517a8f6640f02dc0fda87d6cc20eeffe93046e9ffbc6e56"
+    },
+    {
+      "id": "memory_selection_audit",
+      "sha256": "c8ec837fef6bd3f7d0ed0a7dedbb4732976111eaab946ed44278a5f9e6e6688c"
+    },
+    {
+      "id": "performance_bf16_bf16",
+      "sha256": "5ef57810158861df11ac13eccdc47e5c384958922953cd19fd5985a1935e1bb7"
+    },
+    {
+      "id": "performance_w4_original_packed",
+      "sha256": "a35b8def28ad6561fba71a20144296a377f7d0916075ce68c3aad0325083f94b"
+    },
+    {
+      "id": "performance_w3_original_packed",
+      "sha256": "400f0429d9301c96b2338d7119eba88d420f8f1e88d2f7afc99623d482fcce4c"
+    },
+    {
+      "id": "performance_w25_original_packed",
+      "sha256": "dcbce7c6d0c7ea5c7e4a5ef0fef8f25b0342fd6578e2f338b0ed0c78b6a94636"
+    },
+    {
+      "id": "performance_w2_original_packed",
+      "sha256": "a4dc4025a9b728a454609db2541eb49643203bb8b6c5aad1b1f973996d8fc509"
+    },
+    {
+      "id": "performance_w15_original_packed",
+      "sha256": "02d52f1267767a5572e9769aff04880c910cf904b1000c49d286eb8ef73b7d09"
+    },
+    {
+      "id": "performance_w25_grouped_huffman",
+      "sha256": "389107995123432e1f0e2a30b5c586a5ab6b9466e84ee576f40b7bbd54091e46"
+    },
+    {
+      "id": "performance_w15_grouped_huffman",
+      "sha256": "27c71b6f08accf0ef576ab63338ae856ab348a2e740b8365b42cfad57785dfc4"
+    },
+    {
+      "id": "alternative_w2_CODEBOOK001",
+      "sha256": "feb5dd05aa8b643fc07a8f38b463c44a39789e06782d3c20f963ed8c6bfb9683"
+    },
+    {
+      "id": "alternative_w2_CODEBOOK003",
+      "sha256": "e975ae7dd92c7a15a0e1ff284a6bdf90ade0661e087d52a56258786cdb193d7d"
+    },
+    {
+      "id": "alternative_w15_CODEBOOK001",
+      "sha256": "f6ac1d784cc419b4bc327515dbfdb5b1372228abe91de3ce7d726dbef0e9bf84"
+    },
+    {
+      "id": "alternative_w15_CODEBOOK003",
+      "sha256": "27c71b6f08accf0ef576ab63338ae856ab348a2e740b8365b42cfad57785dfc4"
+    },
+    {
+      "id": "current_manuscript",
+      "filename": "AGQ_ISCAS_27.pdf",
+      "sha256": "2cff5d39b71ab1c6eceb8aac3f76620074850ebd6f87bcd5aa37d823d629395e"
+    }
+  ]
+}

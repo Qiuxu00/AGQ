@@ -1,0 +1,5 @@
+[
+  {"name": "synthetic_small", "rows": 2, "columns": 9, "sensitivity": 0.2, "overhead": 1.0},
+  {"name": "synthetic_medium", "rows": 3, "columns": 8, "sensitivity": 0.3, "overhead": 4.0},
+  {"name": "synthetic_sensitive", "rows": 1, "columns": 13, "sensitivity": 0.5, "overhead": 2.0}
+]

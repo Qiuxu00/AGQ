@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "source_id": "performance_table_audit",
+  "device": "RTX3090",
+  "bytes_per_gb": 1000000000,
+  "inference_calls": 10,
+  "action_steps_per_call": 8,
+  "definitions": {
+    "model_bytes": "Complete standalone model directory, including metadata; not process RAM or target-matrix-only payload.",
+    "peak_allocated_bytes": "PyTorch peak allocated GPU bytes during 10 fixed-input inference calls; excludes allocator reserve and other processes.",
+    "latency_ms": "Mean model_action latency for 10 fixed inputs; one call produces 8 action steps. Excludes observation preprocessing and action postprocessing."
+  },
+  "notes": [
+    "BF16 is a historical EXP009 RTX3090 measurement; remaining rows are EXP018 RTX3090 measurements.",
+    "Lossless weight reconstruction does not imply strict closed-loop trajectory equivalence; selected coded states failed strict closed-loop pairing.",
+    "Peak memory is reset after model loading and warm-up; includes resident tensors, activations and temporary reconstruction tensors.",
+    "Quality and performance are separate evaluations. Coded quality was not re-evaluated in EXP019.",
+    "A smaller measured PyTorch allocation does not guarantee the model fits a card with that exact capacity."
+  ],
+  "rows": [
+    {
+      "configuration": "bf16",
+      "format": "bf16",
+      "implementation": "bf16",
+      "model_bytes": 15456521308,
+      "peak_allocated_bytes": 16082260992,
+      "latency_ms": 187.31888529999998,
+      "compression_ratio": 1.0,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": true
+    },
+    {
+      "configuration": "w4",
+      "format": "original_packed",
+      "implementation": "original_packed",
+      "model_bytes": 4680104619,
+      "peak_allocated_bytes": 5643311104,
+      "latency_ms": 249.2873305,
+      "compression_ratio": 3.3026016651958097,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w3",
+      "format": "original_packed",
+      "implementation": "original_packed",
+      "model_bytes": 3773734119,
+      "peak_allocated_bytes": 4727197696,
+      "latency_ms": 254.38614310000003,
+      "compression_ratio": 4.0958161917607,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w25",
+      "format": "original_packed",
+      "implementation": "original_packed",
+      "model_bytes": 3327431598,
+      "peak_allocated_bytes": 4279762944,
+      "latency_ms": 245.24695440000005,
+      "compression_ratio": 4.645180780662888,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w2",
+      "format": "original_packed",
+      "implementation": "original_packed",
+      "model_bytes": 2878241769,
+      "peak_allocated_bytes": 3828485120,
+      "latency_ms": 243.64021559999998,
+      "compression_ratio": 5.370126121604485,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w15",
+      "format": "original_packed",
+      "implementation": "original_packed",
+      "model_bytes": 2655956656,
+      "peak_allocated_bytes": 3603426304,
+      "latency_ms": 250.52195570000003,
+      "compression_ratio": 5.819568355184784,
+      "strict_closed_loop_pairing": null,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w25",
+      "format": "grouped_huffman",
+      "implementation": "CODEBOOK003",
+      "model_bytes": 3122567386,
+      "peak_allocated_bytes": 4136086528,
+      "latency_ms": 473.93248739999996,
+      "compression_ratio": 4.949940032455076,
+      "strict_closed_loop_pairing": false,
+      "historical_reference": false
+    },
+    {
+      "configuration": "w15",
+      "format": "grouped_huffman",
+      "implementation": "CODEBOOK003",
+      "model_bytes": 2534355326,
+      "peak_allocated_bytes": 3537127936,
+      "latency_ms": 310.42660470000004,
+      "compression_ratio": 6.098798045179873,
+      "strict_closed_loop_pairing": false,
+      "historical_reference": false
+    }
+  ],
+  "alternative_codec_measurements": [
+    {
+      "configuration": "w2",
+      "implementation": "CODEBOOK001",
+      "peak_allocated_bytes": 2946300928,
+      "latency_ms": 1451.3142425
+    },
+    {
+      "configuration": "w2",
+      "implementation": "CODEBOOK003",
+      "peak_allocated_bytes": 3730437632,
+      "latency_ms": 372.18730919999996
+    },
+    {
+      "configuration": "w15",
+      "implementation": "CODEBOOK001",
+      "peak_allocated_bytes": 2784405504,
+      "latency_ms": 1771.8952868000001
+    },
+    {
+      "configuration": "w15",
+      "implementation": "CODEBOOK003",
+      "peak_allocated_bytes": 3537127936,
+      "latency_ms": 310.42660470000004
+    }
+  ]
+}
