@@ -6,7 +6,7 @@
 
 **Preserve actions · Allocate precision · Recover weights on demand**
 
-Xuhong Qiu · Zhuoyu Wu · Qiawei Zheng · Wenhui Ou · Wenqi Fang · Raphael C.W- Phan
+Xuhong Qiu · Zhuoyu Wu · Qiawei Zheng · Wenhui Ou · Wenqi Fang · Raphael C.-W. Phan
 
 [Paper](paper/AGQ_ISCAS_27.pdf) · [Paper figures](docs/PAPER_FIGURES.md) · [Principles](docs/PRINCIPLES.md) · [Get started](docs/GETTING_STARTED.md) · [13 cases](docs/CASES.md) · [中文](README.zh-CN.md)
 
