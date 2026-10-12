@@ -6,6 +6,7 @@ This record distinguishes research milestones from repository preparation. The r
 
 ## 2026-10-12 — Repository preparation
 
+- **Complete paper gallery.** Added high-resolution crops of all four figures and both result tables from the latest manuscript. Rebuilt the bilingual homepages around the original artwork, with compact case views and a [figure/data index](docs/PAPER_FIGURES.md). This is a presentation update; no new model or closed-loop experiments were run.
 - **Updated manuscript basis.** The author-provided *AGQ: Action-Guided Ultra-Low-Bit Quantization for Vision-Language-Action Models* is the current reference for the project title, authors, and method description.
 - **Runnable quantization components.** Added a CPU example that exercises W1–W4 channel calibration, packing, grouped lossless coding, and block-wise recovery on generated inputs. Numerical checks compare the recovered execution against calibrated BF16 weights.
 - **Method comparison interface.** Added a shared matrix-comparison entry point for RTN and optional official HQQ/Quanto adapters. Outputs explicitly identify reconstruction metrics and do not claim new robot-task results; tested combinations are recorded in the [baseline guide](docs/BASELINES.md).

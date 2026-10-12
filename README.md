@@ -4,19 +4,15 @@
 
 ### Action-Guided Ultra-Low-Bit Quantization<br>for Vision-Language-Action Models
 
-**Preserve actions. Allocate precision. Recover weights on demand.**
+**Preserve actions · Allocate precision · Recover weights on demand**
 
 Xuhong Qiu · Zhuoyu Wu · Qiawei Zheng · Wenhui Ou · Wenqi Fang · Raphael C.W- Phan
 
-[Paper](paper/AGQ_ISCAS_27.pdf) · [Principles](docs/PRINCIPLES.md) · [Get started](docs/GETTING_STARTED.md) · [Cases](docs/CASES.md) · [Results](results/) · [News](NEWS.md) · [中文](README.zh-CN.md)
-
-**OpenVLA-OFT · LIBERO · 1–4 bit matrix allocation · No model weights included**
+[Paper](paper/AGQ_ISCAS_27.pdf) · [Paper figures](docs/PAPER_FIGURES.md) · [Principles](docs/PRINCIPLES.md) · [Get started](docs/GETTING_STARTED.md) · [13 cases](docs/CASES.md) · [中文](README.zh-CN.md)
 
 </div>
 
-AGQ compresses vision-language-action policies by assigning precision to the matrices that matter for **action prediction and weight recovery cost**. Per-channel calibration restores accuracy; grouped lossless coding and block-wise recovery reduce the memory needed to store and execute the policy.
-
-This repository brings together the method, quantization components, runnable numerical examples, and traceable results. It is being prepared privately; the manuscript has no public publication identifier recorded here, and the project license awaits an author decision.
+AGQ assigns precision according to **action sensitivity and weight recovery cost**. It combines matrix-wise bit allocation, per-channel calibration, and grouped lossless coding to compress OpenVLA-OFT policies while preserving useful closed-loop behavior.
 
 | W4 success | W3 success | W2.5 success | Complete-model compression |
 | :---: | :---: | :---: | :---: |
@@ -24,34 +20,80 @@ This repository brings together the method, quantization components, runnable nu
 | 586 / 600 episodes | 556 / 600 episodes | 423 / 600 episodes | Coded W1.5* storage |
 
 <p align="center">
-  <img src="assets/overview.png" alt="AGQ success rates and configuration comparison, with 600 evaluated episodes per configuration" width="900">
+  <a href="assets/paper/figure1_compression_success.png"><img src="assets/paper/figure1_compression_success.png" alt="Paper Figure 1: success, target-weight compression, and peak memory across six precision settings" width="760"></a>
 </p>
 
-The success rates above come from EXP019. The compression figure comes from a separate performance export; it is not a claim that the coded export was rerun through those 600 episodes. W1.5* means W4 vision and average-W1.5 language, approximately 1.75 bits over all target weights.
+**Figure 1 · The compression–success tradeoff.** Original artwork from the paper; click any figure to enlarge. The bars measure **target-weight** compression. The 96.9% reference is **FP16 literature data**, despite the retained BF16 label. The low-bit memory minima and the main performance table use different decoders. [Figure notes and data](docs/PAPER_FIGURES.md#figure-1--compression-success-and-memory).
 
 ## News
 
-- **2026-10-12 — Quantization tools.** Added a W1–W4 calibration-to-execution example and a common matrix comparison interface for RTN and optional official HQQ/Quanto adapters. [Try them](docs/GETTING_STARTED.md).
-- **2026-10-12 — Method guide.** Added a readable walkthrough of action sensitivity, budgeted allocation, calibration, and compressed execution, aligned with the latest author-provided AGQ manuscript.
-- **2026-10-12 — Results and cases.** Organized the audited episode counts, per-task results, allocation analysis, and resource measurements into a browsable case guide with machine-readable sources.
-- **2026-10-11 — Figure provenance.** Completed the independent v9 teaser revision and documented that its 96.9% reference is the FP16 literature value.
-- **2026-10-09 — Closed-loop evaluation.** Completed and audited 6,000 episodes across ten configurations and four LIBERO suites. W2.5 with $\lambda=0.5$ reached 423/600 successes.
+- **2026-10-12 — Paper figures added.** All four figures and both complete result tables now appear on this page, with a [source and data index](docs/PAPER_FIGURES.md).
+- **2026-10-12 — Code and examples.** Added W1–W4 calibration-to-execution components, official HQQ/Quanto matrix adapters, and **74 passing local tests**. [Start here](docs/GETTING_STARTED.md).
+- **2026-10-12 — Thirteen cases.** Organized precision, allocation, task-family, failure, and resource analyses with machine-readable results. [Explore the cases](docs/CASES.md).
+- **2026-10-09 — Evaluation completed.** Audited **6,000 closed-loop episodes** across ten configurations and four LIBERO suites; W2.5 at $\lambda=0.5$ achieved 423/600 successes.
 
-See [NEWS.md](NEWS.md) for the fuller record. Dates reflect research and repository preparation milestones.
+[All project news](NEWS.md)
 
-## The principle in three steps
+## The method
 
 <p align="center">
-  <img src="assets/framework.png" alt="AGQ framework: VLA architecture, action- and cost-informed bit allocation, per-channel calibration, and grouped lossless coding" width="1100">
+  <a href="assets/paper/figure2_framework.png"><img src="assets/paper/figure2_framework.png" alt="Paper Figure 2: model architecture, action-and-cost allocation, channel calibration, and grouped coding with block-wise execution" width="1100"></a>
 </p>
 
-1. **Allocate with actions and cost.** Probe each matrix at W4. Combine its action deviation and measured recovery overhead, then allocate W1–W4 under separate vision and language storage budgets.
-2. **Calibrate with regular layouts.** Keep one bitwidth per matrix and learn channel quantizers through block reconstruction. Original model weights and assigned bitwidths stay fixed.
-3. **Encode and recover by block.** Group integer codes for lossless compression. Recover only the active block's BF16 weights, use them for matrix multiplication, and release them afterward.
+**Figure 2 · From a full-precision policy to compressed execution.** The method targets **428 matrices**: 204 in vision and 224 in language. Each matrix keeps one integer bitwidth, preserving regular layouts.
 
-The W4 overhead is an allocation proxy, not a predictor of every candidate precision's latency. See [the equations and design choices](docs/PRINCIPLES.md).
+| 1 · Measure and allocate | 2 · Calibrate | 3 · Encode and execute |
+| --- | --- | --- |
+| Probe action deviation and recovery overhead at W4. Assign W1–W4 under separate vision and language budgets. | Keep original weights and bitwidths fixed. Learn per-channel quantizers through block reconstruction. | Apply grouped lossless coding. Recover the active block's BF16 weights, compute, and release temporary weights. |
 
-## Start with something useful
+The W4 cost is an allocation proxy. Matrix multiplication uses recovered BF16 weights. [Equations, assumptions, and implementation](docs/PRINCIPLES.md).
+
+## Closed-loop task success
+
+<p align="center">
+  <a href="assets/paper/table1_task_success.png"><img src="assets/paper/table1_task_success.png" alt="Complete paper success table comparing the original-precision reference, AWQ, GPTQ, QVLA, and AGQ across four LIBERO suites" width="880"></a>
+</p>
+
+**Complete paper success table · Four suites, including the difficult cases.** AGQ reaches **92.7% at W3** and **70.5% at W2.5**. At W3, the reported advantage is 1.2 points over AWQ and 3.7 over GPTQ. At W2.5, Object retains 100.0% while Goal falls to 17.3%; the overall score does not hide that imbalance.
+
+Each AGQ study configuration contains **600 episodes**: 150 per suite and 15 per task. The ten configurations total 6,000 episodes. AWQ, GPTQ, QVLA, and the 96.9% original-precision reference are literature reports. W1.5* uses W4 vision and average-W1.5 language, approximately **1.75 bits over target weights**. [Counts](results/quality.json) · [All 40 tasks](results/tasks.csv) · [Literature rows](results/published_baselines.json).
+
+## Why allocate by actions and cost?
+
+<p align="center">
+  <a href="assets/paper/figure3_allocation_sensitivity.png"><img src="assets/paper/figure3_allocation_sensitivity.png" alt="Paper Figure 3: bitwidth allocation counts and three-dimensional views of matrix sensitivity, overhead, and final score" width="920"></a>
+</p>
+
+**Figure 3 · Matrix-level differences lead to different assignments.** The paper's combined table and three-dimensional views connect the measured priorities to the allocation. At W2.5 and $\lambda=0.5$, the **W1 / W2 / W3 / W4 matrix counts are 19 / 150 / 199 / 60**. These count matrices; they are not parameter-weighted average bitwidths. [Allocation data](results/allocations.json).
+
+<p align="center">
+  <a href="assets/paper/figure4_lambda_success.png"><img src="assets/paper/figure4_lambda_success.png" alt="Paper Figure 4: W2.5 suite and overall success across five lambda values, with calibrated-random and QVLA references" width="700"></a>
+</p>
+
+**Figure 4 · Test the allocation choice in closed loop.** At W2.5, guided configurations reach **63.5–70.5%**, versus **8.2%** for calibrated random allocation. The tested default $\lambda=0.5$ exceeds sensitivity-only allocation by **4.7 percentage points** in overall success. It does not win every suite. [Five-setting comparison and cases](docs/CASES.md).
+
+## Storage and inference
+
+<p align="center">
+  <a href="assets/paper/table2_storage_performance.png"><img src="assets/paper/table2_storage_performance.png" alt="Complete paper performance table: whole-model storage, compression ratio, peak allocated GPU memory, and latency on RTX3090" width="880"></a>
+</p>
+
+**Complete paper performance table · Storage savings and execution cost together.** Grouped-coded W1.5* occupies **2.534 GB**, giving **6.10× complete-model compression**. The same recorded configuration measures **3.537 GB peak allocated GPU memory** and **310.4 ms** per inference call on RTX3090; coding adds 59.9 ms over its uncoded counterpart.
+
+Figure 1's **2.784 GB** minimum uses **CODEBOOK001**; the table's **3.537 GB / 310.4 ms** uses **CODEBOOK003**. EXP019 success scores and these coded performance records are separate measurements. [Precise definitions and trajectory-pairing results](docs/PAPER_FIGURES.md#measurement-notes) · [Performance data](results/performance.json).
+
+## Explore 13 cases
+
+| Read the behavior | What to inspect |
+| --- | --- |
+| **Quality across precision** | W3 retention, W2.5 Spatial/Object results, Goal failures, and W1.5* asymmetry |
+| **Allocation choices** | Guided versus calibrated-random allocation, all five $\lambda$ settings, and 428 matrix assignments |
+| **Deployment tradeoffs** | Whole-model storage, coding overhead, minimum-memory versus faster decoding |
+| **Every task** | Suite-level outcomes and all 40 tasks, including failures |
+
+[Open the illustrated case guide](docs/CASES.md) · [Browse the result files](results/) · [View the six paper figures and tables](docs/PAPER_FIGURES.md)
+
+## Run the code
 
 ```bash
 python -m pip install -c requirements/cpu-constraints.txt -e ".[test]"
@@ -61,83 +103,13 @@ agq compare --methods rtn --bits 4 --output outputs/compare_rtn_w4.json
 python scripts/verify_results.py
 ```
 
-The AGQ demo runs calibration, packing, lossless coding, and block-wise execution on generated tensors. Official HQQ adapters have been checked at 1/2/3/4/8 bits, and the Quanto adapter exposes verified CPU int8. Follow the [step-by-step guide](docs/GETTING_STARTED.md) to install them. The constrained CPU environment is separate from the full OpenVLA-OFT GPU environment. These examples write numerical metrics, not model weights.
+The AGQ demo runs calibration, packing, lossless coding, and block-wise execution on generated tensors. Optional official **HQQ** adapters have been checked at **1/2/3/4/8 bits**; **Quanto** exposes verified **CPU int8**. These matrix examples report numerical errors. Full-policy inference uses the separate OpenVLA-OFT environment and user-supplied model assets.
 
-**Validation:** all **74 local tests passed without skips**, covering 52 AGQ component checks, 16 matrix-adapter checks, and 6 result-audit checks. See [the validation record](docs/VALIDATION.md) for the environment and scope.
+**Validation:** **74 local tests passed without skips**: 52 AGQ component checks, 16 matrix-adapter checks, and 6 result-audit checks. This visual update adds no GPU or closed-loop experiments. Model weights and learned quantizer parameters are not distributed.
 
-| Your goal | Entry point | What you can inspect |
-| --- | --- | --- |
-| Understand AGQ | [Principles](docs/PRINCIPLES.md) | Equations, assumptions, and storage/execution design |
-| Run quantization examples | [Getting started](docs/GETTING_STARTED.md) | Small local inputs and commands with explicit prerequisites |
-| Check the paper's numbers | [Case guide](docs/CASES.md) · [Results](results/) | Exact episode counts, suite/task breakdowns, and performance definitions |
-| Compare or extend methods | [Integration status](docs/INTEGRATION_STATUS.md) | What is implemented, what is optional, and what has been tested |
-| Trace an upstream idea | [References](docs/REFERENCES.md) | Official OpenVLA-OFT, AWQ, GPTQ, OmniQuant, Quanto, and TorchAO sources |
-
-Model checkpoints and calibration datasets are not distributed. The small numerical examples do not need pretrained model weights. Full-policy inference and closed-loop reproduction require separately obtained model assets and the corresponding environment; see the implementation status before planning a run.
-
-## Explore the cases
-
-The [case guide](docs/CASES.md) contains **13 cases** addressing questions such as:
-
-| Question | Case material |
-| --- | --- |
-| How much success remains at W4, W3, W2.5, and W2? | Bitwidth sweep with integer success counts |
-| Does guided allocation help after calibration? | W2.5 guided and calibrated-random comparison |
-| How does $\lambda$ affect the result? | Five settings, overall and per-suite outcomes |
-| Which task suites remain difficult? | Spatial, Object, Goal, and Long breakdowns |
-| What happens at W1.5*? | Asymmetric vision/language allocation and observed limitations |
-| Where do additional compression savings come from? | Uncoded and coded model storage, peak memory, and latency |
-| Which individual tasks fail? | A task-level map covering all 40 tasks |
-| How do allocation counts change with the budget? | W1–W4 matrix counts for vision and language |
-
-<details>
-<summary><strong>More analysis views</strong></summary>
-
-<p align="center">
-  <img src="assets/lambda_sweep.png" alt="W2.5 success rates across five lambda settings" width="850">
-</p>
-<p align="center">
-  <img src="assets/resource_tradeoff.png" alt="Storage and inference measurements with coded and uncoded configurations distinguished" width="850">
-</p>
-
-</details>
-
-## Results you can trace
-
-Each configuration contains **600 closed-loop episodes**: 150 per suite and 15 per task. The five main bitwidth configurations, four additional W2.5 lambda settings, and one calibrated-random configuration make **ten configurations and 6,000 episodes** in total.
-
-| AGQ configuration | Successes | Overall success |
-| --- | ---: | ---: |
-| W4 | 586 / 600 | 97.7% |
-| W3 | 556 / 600 | 92.7% |
-| W2.5, $\lambda=0.5$ | 423 / 600 | 70.5% |
-| W2 | 210 / 600 | 35.0% |
-| W1.5* | 153 / 600 | 25.5% |
-| Calibrated random W2.5 | 49 / 600 | 8.2% |
-
-Sources: [quality.json](results/quality.json), [tasks.csv](results/tasks.csv), and [the case guide](docs/CASES.md). The 6,000 episodes cover AGQ study configurations; AWQ, GPTQ, QVLA, and the FP16 reference are literature values recorded separately in [published_baselines.json](results/published_baselines.json).
-
-**Read the resource numbers with their scope.** The main performance table's coded W1.5* configuration occupies **2.534 GB**, gives **6.10× complete-model compression**, and measures **3.537 GB** peak allocated GPU memory and **310.4 ms** per inference call on RTX3090. Its storage and timing are recorded in [performance.json](results/performance.json). The original paper teaser's **2.78 GB** uses another coding implementation and must not be paired with 310.4 ms. The performance records also retain the failed strict closed-loop trajectory-pairing checks; lossless weight recovery does not guarantee identical trajectories.
-
-## Repository map
-
-```text
-AGQ/
-├── src/agq/          # Quantization components and command interface
-├── scripts/          # Numerical checks and research utilities
-├── examples/         # Small examples and case catalog
-├── tests/            # Numerical and interface checks
-├── results/          # Audited aggregates; no model parameters
-├── assets/           # Figures for the method and case guide
-├── docs/             # Principles, setup, cases, and integration status
-├── paper/            # Author-provided manuscript
-├── NEWS.md
-└── CITATION.cff
-```
+[Getting started](docs/GETTING_STARTED.md) · [Reproducing AGQ](docs/REPRODUCING_AGQ.md) · [Method integrations](docs/INTEGRATION_STATUS.md) · [Baseline adapters](docs/BASELINES.md) · [Validation record](docs/VALIDATION.md)
 
 ## Citation and acknowledgments
-
-The current citation describes an **unpublished manuscript**; acceptance, proceedings, and a public paper identifier are not claimed.
 
 ```bibtex
 @unpublished{qiu2026agq,
@@ -148,4 +120,6 @@ The current citation describes an **unpublished manuscript**; acceptance, procee
 }
 ```
 
-AGQ builds on [OpenVLA-OFT](https://github.com/moojink/openvla-oft) and LIBERO. Its calibration design follows OmniQuant's clipping and block reconstruction ideas. We also thank the authors of AWQ, GPTQ, and the other projects listed in [References](docs/REFERENCES.md). Their licenses and attribution remain separate from this project's pending license decision.
+AGQ builds on [OpenVLA-OFT](https://github.com/moojink/openvla-oft) and LIBERO. Its calibration follows OmniQuant's clipping and block reconstruction ideas. See [official references](docs/REFERENCES.md) and [third-party notices](THIRD_PARTY_NOTICES.md) for upstream work and attribution.
+
+The repository remains private; the manuscript is recorded as unpublished, and the project license awaits an author decision.

@@ -1,10 +1,16 @@
 # How AGQ works
 
-[Home](../README.md) · [Getting started](GETTING_STARTED.md) · [Cases](CASES.md)
+[Home](../README.md) · [Getting started](GETTING_STARTED.md) · [Cases](CASES.md) · [Paper figures](PAPER_FIGURES.md)
 
 AGQ allocates a limited weight budget according to how quantization changes **robot actions** and how much **weight recovery costs**. Calibration compensates for the resulting error. Grouped lossless coding and block-wise recovery then reduce resident and temporary weight storage.
 
 This explanation follows the author-provided manuscript, *AGQ: Action-Guided Ultra-Low-Bit Quantization for Vision-Language-Action Models*, received on October 12, 2026. It describes the research method; the [implementation status](INTEGRATION_STATUS.md) identifies which parts can currently be exercised in this repository.
+
+<p align="center">
+  <a href="../assets/paper/figure2_framework.png"><img src="../assets/paper/figure2_framework.png" alt="Original paper framework: architecture, allocation, calibration and compressed execution" width="1000"></a>
+</p>
+
+Paper Figure 2. Follow the allocation and calibration stages through to block-wise weight recovery; click to inspect the original details.
 
 ## 1. Measure actions, not just weight error
 
@@ -46,6 +52,12 @@ $$
 $A_i(b_i)$ includes the candidate representation's weight codes, metadata, and padding. The reported compression ratios use actual exported bytes.
 
 The policy has **428 target matrices**: 204 vision matrices and 224 language matrices. Parameters outside this target set remain at their original precision. An average such as W2.5 therefore denotes a mixture of integer matrix bitwidths, not a 2.5-bit scalar datatype.
+
+<p align="center">
+  <a href="../assets/paper/figure3_allocation_sensitivity.png"><img src="../assets/paper/figure3_allocation_sensitivity.png" alt="Original paper allocation table and action sensitivity, recovery overhead and final score plots" width="780"></a>
+</p>
+
+Paper Figure 3 shows the resulting matrix counts and the three measured priority views. Counts in parentheses separate vision and language matrices. The 3D plots display language W4 probes for the W2.5, lambda=0.5 configuration.
 
 The asymmetric **W1.5\*** configuration keeps vision at W4 and targets an average of W1.5 for language. Its parameter-weighted average over all targeted vision and language weights is approximately **1.75 bits**.
 

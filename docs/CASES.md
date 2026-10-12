@@ -1,118 +1,82 @@
-# Cases: read the behavior behind the headline
+# Thirteen cases, from matrices to robot tasks
 
-Thirteen measured cases connect the method to concrete outcomes. All success rates come from the released EXP019 counts; storage and timing use their own explicitly labeled performance records. These examples need no weights, private logs, or GPU to inspect.
+[Home](../README.md) · [Paper figures](PAPER_FIGURES.md) · [Principles](PRINCIPLES.md) · [Result data](../results/)
 
-![Success by precision and suite](../assets/overview.png)
+**10 configurations · 6,000 episodes · 40 tasks · 428 target matrices.** Explore the paper's original tables alongside detailed views of the released results. Each configuration has 150 episodes per suite and 15 per task. These are historical measurements; this repository update adds visual analysis, not new evaluations.
 
-## Five operating points across four suites
+## 1. Task quality across five precision budgets
 
-Each suite has 150 episodes per configuration. The total is 600, with 15 episodes for each of 40 tasks. Rates are percentages; overall counts are shown directly.
+<p align="center">
+  <a href="../assets/overview.png"><img src="../assets/overview.png" alt="AGQ precision sweep and four-suite results" width="920"></a>
+</p>
 
-| Configuration | Spatial | Object | Goal | Long | Overall count | Overall rate |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| W4 | 97.3 | 100.0 | 98.7 | 94.7 | 586/600 | 97.7% |
-| W3 | 96.7 | 100.0 | 83.3 | 90.7 | 556/600 | 92.7% |
-| W2.5 / lambda=0.5 | 80.0 | 100.0 | 17.3 | 84.7 | 423/600 | 70.5% |
-| W2 | 29.3 | 92.0 | 1.3 | 17.3 | 210/600 | 35.0% |
-| W1.5* | 38.7 | 60.7 | 0.0 | 2.7 | 153/600 | 25.5% |
+| Case | Measured behavior | How to read it |
+| --- | --- | --- |
+| **01 · W3 retention** | **556/600 (92.7%)**, compared with 586/600 (97.7%) at W4 | The 5.0-point difference is descriptive, not a significance test. |
+| **02 · Spatial at W2.5** | **120/150 (80.0%)** | The pooled 70.5% average conceals differences between suites. |
+| **03 · Object at low precision** | **150/150** at W3 and W2.5; **138/150 (92.0%)** at W2 | Retention on Object does not imply equal retention elsewhere. |
+| **04 · Goal failures** | W3 **125/150** → W2.5 **26/150** → W2 **2/150** → W1.5* **0/150** | Failure cases matter when selecting a deployment budget. |
+| **05 · Long: guided vs random** | Guided W2.5 **127/150 (84.7%)**; calibrated random **0/150** | Both configurations include calibration; this does not isolate calibration itself. |
+| **09 · Asymmetric W1.5\*** | **153/600 overall**; Spatial **58/150**, versus **44/150** at W2 | Vision stays W4, language averages W1.5; target-weight average is about 1.75 bits. |
 
-W1.5* is asymmetric: W4 vision and W1.5 language, approximately 1.75 bits across target weights. The default W2.5 setting uses lambda=0.5.
+### The complete paper comparison
 
-### 01. A high-retention W3 operating point
+<p align="center">
+  <a href="../assets/paper/table1_task_success.png"><img src="../assets/paper/table1_task_success.png" alt="Original paper table comparing baseline, AWQ, GPTQ, QVLA and AGQ on the four LIBERO suites" width="820"></a>
+</p>
 
-W3 retains 556/600 successes (92.7%), compared with 586/600 (97.7%) at W4.
+Original table from manuscript page 4. The highlighted AGQ rows use EXP019; AWQ, GPTQ, QVLA and the 96.9% FP16 reference are literature results, recorded in [published_baselines.json](../results/published_baselines.json). Missing literature precisions are not filled with fabricated zeros. Click any figure for its full-resolution view.
 
-Use as a quality/storage reference; the 5.0-point difference is descriptive, not a significance test.
+## 2. What changes when the allocation changes?
 
-### 02. Spatial: a useful W2.5 regime
+<p align="center">
+  <a href="../assets/lambda_sweep.png"><img src="../assets/lambda_sweep.png" alt="Five lambda settings, measured success counts and matrix allocations" width="920"></a>
+</p>
 
-W2.5 reaches 120/150 successes (80.0%) on Spatial.
+| Case | Measured behavior | How to read it |
+| --- | --- | --- |
+| **06 · Five lambda settings** | λ = 0 / 0.25 / 0.5 / 0.75 / 1 gives **395 / 381 / 423 / 406 / 400** successes out of 600 | λ = 0.5 is 4.7 percentage points above λ = 0 after rounding. |
+| **07 · Overall vs suite winner** | Goal: λ = 0.75 gives **30/150**, versus **26/150** at λ = 0.5; overall **406/600** versus **423/600** | The best overall setting need not win every suite. |
+| **08 · Guided vs random allocation** | Calibrated random **49/600 (8.2%)**; guided W2.5 **423/600 (70.5%)** | Supports informed allocation within the calibrated pipeline, not a separate calibration ablation. |
+| **13 · 428 matrix assignments** | W1/W2/W3/W4 counts change from **54/107/189/78** at λ = 0 to **19/150/199/60** at λ = 0.5 | These are matrix counts, not parameter-weighted average bitwidths. |
 
-The pooled 70.5% average hides meaningful differences between suites.
+### Where the different priorities come from
 
-### 03. Object: retention at lower bitwidth
+<p align="center">
+  <a href="../assets/paper/figure3_allocation_sensitivity.png"><img src="../assets/paper/figure3_allocation_sensitivity.png" alt="Paper Figure 3: vision and language allocations, action sensitivity, execution overhead, and joint score" width="820"></a>
+</p>
 
-Object achieves 150/150 at W3 and W2.5, and 138/150 (92.0%) at W2.
+Paper Figure 3 combines the allocation table and three matrix-level views. The plotted action sensitivities span **20.2×**, while recovery overhead varies **2.0×**. These describe the displayed measurements, not a statistical significance test. The original figure's sensitivity and score axes are logarithmic; the overhead axis uses microseconds. See [the allocation principles](PRINCIPLES.md#3-allocate-integer-bitwidths-under-real-storage-budgets) and [allocation counts](../results/allocations.json).
 
-A strong Object score does not imply the same retention on other suites.
+## 3. Storage, memory and latency belong together
 
-### 04. Goal: an explicit low-bit failure case
+<p align="center">
+  <a href="../assets/resource_tradeoff.png"><img src="../assets/resource_tradeoff.png" alt="Paired storage, memory and latency values for coded and uncoded configurations" width="920"></a>
+</p>
 
-Goal falls from 125/150 at W3 to 26/150 at W2.5, 2/150 at W2, and 0/150 at W1.5*.
+| Case | Measured behavior | How to read it |
+| --- | --- | --- |
+| **10 · Whole-model compression** | W1.5*: **2.656 GB / 250.5 ms** uncoded → **2.534 GB / 310.4 ms** coded | **6.10×** complete-model compression; **3.537 GB** peak memory; coding adds **59.9 ms**. |
+| **11 · Two coding implementations** | CODEBOOK001: **2.784 GB / 1771.9 ms**; CODEBOOK003: **3.537 GB / 310.4 ms** | The minimum-memory point and faster decoder are separate configurations. |
+| **12 · Configuration-dependent overhead** | Coded W2.5 **473.9 ms**; coded W1.5* **310.4 ms** | Stored bitwidth alone does not determine full model-action latency. |
 
-Inspect failures as well as successes when choosing a budget.
+The [original performance table](../assets/paper/table2_storage_performance.png) and [machine-readable measurements](../results/performance.json) retain the model size, peak allocated memory and latency for each configuration. The resource measurements use RTX3090 and a fixed inference window after loading and warmup.
 
-### 05. Long: guided allocation versus random
+## 4. Inspect all 40 tasks, including failures
 
-Guided W2.5 reaches 127/150 successes (84.7%); calibrated random W2.5 reaches 0/150.
+<p align="center">
+  <a href="../assets/task_heatmap.png"><img src="../assets/task_heatmap.png" alt="Success counts out of 15 for every task across all ten study configurations" width="920"></a>
+</p>
 
-Both configurations include calibration; this comparison does not isolate calibration itself.
+All ten tasks in each of four suites are shown across **all ten configurations**, including the five lambda settings and calibrated random control: **400 aggregate cells**, each out of 15 episodes. [tasks.csv](../results/tasks.csv) contains the values. Task IDs follow zero-based LIBERO suite indices; no task is filtered by outcome.
 
-![Lambda sweep and matrix allocations](../assets/lambda_sweep.png)
-
-### 06. The full lambda sweep
-
-Success counts are 395, 381, 423, 406, and 400 out of 600 for lambda=0, 0.25, 0.5, 0.75, and 1.
-
-The tested default lambda=0.5 is 4.7 percentage points above lambda=0 after rounding.
-
-### 07. An overall winner is not a suite-wise winner
-
-Lambda=0.75 reaches 30/150 on Goal versus 26/150 for lambda=0.5, while its overall total is 406/600 versus 423/600.
-
-The best overall setting need not maximize every task family.
-
-### 08. Calibration cannot rescue arbitrary allocation
-
-Calibrated random W2.5 reaches 49/600 (8.2%); guided W2.5 reaches 423/600 (70.5%).
-
-This supports informed allocation within the calibrated pipeline, not an independent calibration ablation.
-
-### 09. Asymmetric extreme compression
-
-W1.5* retains W4 vision and W1.5 language: 153/600 overall, with 58/150 Spatial versus 44/150 at W2.
-
-W1.5* is approximately 1.75 bits across target weights; quality is not monotonic in every suite.
-
-![Storage and codec tradeoffs](../assets/resource_tradeoff.png)
-
-### 10. Whole-model storage versus latency
-
-W1.5* changes from 2.656 GB / 250.5 ms without coding to 2.534 GB / 310.4 ms with grouped coding.
-
-The coded record gives 6.10x complete-model compression and 3.537 GB peak allocation. Coding adds 59.9 ms.
-
-### 11. Minimum memory and fast decoding are different points
-
-W1.5* CODEBOOK001 measures 2.784 GB / 1771.9 ms; CODEBOOK003 measures 3.537 GB / 310.4 ms.
-
-Do not combine the 2.784 GB minimum with the 310.4 ms latency.
-
-### 12. Coding overhead depends on the configuration
-
-The grouped-coded W2.5 record takes 473.9 ms; the grouped-coded W1.5* record takes 310.4 ms.
-
-Fewer stored bits do not alone determine decoder or full model-action latency.
-
-### 13. From priorities to 428 matrix assignments
-
-At W2.5, changing lambda from 0 to 0.5 changes W1/W2/W3/W4 counts from 54/107/189/78 to 19/150/199/60.
-
-These are matrix counts, not parameter-weighted bit averages.
-
-## Inspect all tasks, including failures
-
-![Success counts for every task at five operating points](../assets/task_heatmap.png)
-
-The image displays all ten tasks in each suite for the five principal operating points. [tasks.csv](../results/tasks.csv) additionally includes all lambda settings and the calibrated random control, for 400 aggregate rows in total. Task IDs follow zero-based LIBERO suite indices. There are no selected successful videos standing in for the evaluation.
-
-## Recompute and reuse
+## Recompute and trace
 
 ```bash
 python scripts/verify_results.py
 python assets/generate_figures.py
 ```
 
-The second command requires Matplotlib and NumPy. The machine-readable [case catalog](../examples/cases/catalog.json) identifies the configurations and scopes used by each case. The [measurement guide](../results/README.md) defines denominators, storage, memory, latency, and literature provenance.
+Plot regeneration requires Matplotlib and NumPy. The [case catalog](../examples/cases/catalog.json) records the original 13 cases, configurations and interpretations. The [paper-figure gallery](PAPER_FIGURES.md) maps all six original figures/tables to manuscript pages and extraction records. The [measurement guide](../results/README.md) defines each metric.
 
-The 96.9% original-precision reference is a reported FP16 result, not a local BF16 rerun. Optional lossless coding is measured separately from EXP019 quality; bit-exact weight reconstruction does not establish strict closed-loop trajectory equivalence. These descriptive cases do not assert statistical significance.
+The original teaser retains a BF16 axis label at its 96.9% point, whose source is the FP16 literature reference. Optional coding measurements are separate from EXP019 quality; exact weight reconstruction does not establish identical closed-loop trajectories. These descriptive cases do not assert statistical significance.

@@ -1,0 +1,144 @@
+{
+  "source_pdf": "../../paper/AGQ_ISCAS_27.pdf",
+  "source_sha256": "2cff5d39b71ab1c6eceb8aac3f76620074850ebd6f87bcd5aa37d823d629395e",
+  "source_pages": 6,
+  "renderer": "PyMuPDF",
+  "renderer_version": "1.28.2",
+  "dpi": 300,
+  "padding_points": 2.0,
+  "coordinate_system": "PDF points; page top-left origin; x0, y0, x1, y1",
+  "method": "Direct rendering of original embedded-graphic regions; no data or label edits.",
+  "notes": [
+    "The two tables have no numbered captions in the manuscript; filenames provide stable gallery identifiers.",
+    "Figure 1 preserves the original BF16 axis label. Its 96.9% reference comes from ActQuant FP16, not a new BF16 evaluation.",
+    "Figure 1 minimum memory and the performance table use different coding settings; consult the results documentation."
+  ],
+  "graphics": [
+    {
+      "id": "figure1_compression_success",
+      "title": "Figure 1: compression, success and memory",
+      "page": 1,
+      "graphic_bounds_points": [
+        311.978,
+        217.744789,
+        563.051596,
+        354.553
+      ],
+      "render_clip_points": [
+        309.977997,
+        215.744781,
+        565.051575,
+        356.553009
+      ],
+      "file": "figure1_compression_success.png",
+      "width_px": 1064,
+      "height_px": 588,
+      "sha256": "99798c80bac73753945650843fbfa2d6b2f8fb2d7dd174073bf27e02be5bf7b9"
+    },
+    {
+      "id": "figure2_framework",
+      "title": "Figure 2: AGQ framework",
+      "page": 2,
+      "graphic_bounds_points": [
+        48.964,
+        50.37148,
+        563.051066,
+        354.627
+      ],
+      "render_clip_points": [
+        46.964001,
+        48.371479,
+        565.051086,
+        356.627014
+      ],
+      "file": "figure2_framework.png",
+      "width_px": 2160,
+      "height_px": 1285,
+      "sha256": "c7f218244197f698c0918d3b97e38bb0fe64c9019677a305d051408392b8fd24"
+    },
+    {
+      "id": "figure3_allocation_sensitivity",
+      "title": "Figure 3: allocation and matrix-level probes",
+      "page": 3,
+      "graphic_bounds_points": [
+        311.978,
+        358.949779,
+        563.051596,
+        565.028
+      ],
+      "render_clip_points": [
+        309.977997,
+        356.949768,
+        565.051575,
+        567.028015
+      ],
+      "file": "figure3_allocation_sensitivity.png",
+      "width_px": 1064,
+      "height_px": 876,
+      "sha256": "123a0904ca7df9335dfb6ac03d5eb959b9817967fd5319e8d50786ffc375751f"
+    },
+    {
+      "id": "figure4_lambda_success",
+      "title": "Figure 4: W2.5 success across lambda settings",
+      "page": 4,
+      "graphic_bounds_points": [
+        48.964,
+        46.78536,
+        300.037596,
+        190.794
+      ],
+      "render_clip_points": [
+        46.964001,
+        44.785358,
+        302.037598,
+        192.794006
+      ],
+      "file": "figure4_lambda_success.png",
+      "width_px": 1064,
+      "height_px": 618,
+      "sha256": "7ac7b58e374d11c3dfb75d996d20f0fae77966fa9ebb760109b1f3878c589b9d"
+    },
+    {
+      "id": "table1_task_success",
+      "title": "Task success at ultra-low bitwidths",
+      "page": 4,
+      "graphic_bounds_points": [
+        48.964,
+        403.270184,
+        300.023998,
+        587.925
+      ],
+      "render_clip_points": [
+        46.964001,
+        401.270172,
+        302.023987,
+        589.924988
+      ],
+      "file": "table1_task_success.png",
+      "width_px": 1064,
+      "height_px": 788,
+      "sha256": "b7c25900731aee1ec884f4822c9c87a5757c5272ac3231fe75b187fc54087271"
+    },
+    {
+      "id": "table2_storage_performance",
+      "title": "Storage and inference efficiency",
+      "page": 4,
+      "graphic_bounds_points": [
+        311.978,
+        316.60016,
+        563.037998,
+        431.974
+      ],
+      "render_clip_points": [
+        309.977997,
+        314.600159,
+        565.038025,
+        433.973999
+      ],
+      "file": "table2_storage_performance.png",
+      "width_px": 1064,
+      "height_px": 499,
+      "sha256": "de393083e6bed9840367af0cb8c534d752b6f680795cce75a810f6fd4490d09b"
+    }
+  ]
+}
