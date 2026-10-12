@@ -40,4 +40,4 @@ AGQ's organization draws on the following practical patterns, with original text
 - **TorchAO:** expose focused examples, tests, and workflow-specific documentation. [Official README](https://github.com/pytorch/ao)
 - **HQQ:** document supported precisions and backend restrictions separately from the basic quantizer. [Official README](https://github.com/dropbox/hqq)
 
-Upstream speedups, hardware support, and model coverage do not transfer automatically to AGQ. Consult the upstream revision you install for current compatibility and license terms. AGQ's own project license remains pending an author decision during this private preparation stage.
+Upstream speedups, hardware support, and model coverage do not transfer automatically to AGQ. Consult the upstream revision you install for current compatibility and license terms. AGQ's own project license remains pending an author decision.

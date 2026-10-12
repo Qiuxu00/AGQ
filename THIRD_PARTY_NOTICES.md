@@ -1,6 +1,6 @@
 # Sources and third-party notices
 
-The repository is a private preparation of the AGQ research release. The authors have not yet selected a project-wide open-source license. No license for the AGQ code is inferred from an upstream dependency's license.
+The AGQ research repository is publicly accessible. The authors have not yet selected a project-wide open-source license. No license for the AGQ code is inferred from an upstream dependency's license.
 
 ## Research implementation
 

@@ -2,7 +2,11 @@
 
 [Home](README.md) · [Cases](docs/CASES.md) · [Integration status](docs/INTEGRATION_STATUS.md)
 
-This record distinguishes research milestones from repository preparation. The repository is being prepared privately. Dates below do not imply a public release, paper acceptance, or availability of model weights.
+This record distinguishes research milestones from repository preparation and publication. The repository became publicly accessible on 2026-10-12. These dates do not imply paper acceptance or availability of model weights.
+
+## 2026-10-12 — Repository made public
+
+- **Public access enabled.** Code, documentation, examples, and aggregate results are publicly accessible. Model weights and learned quantizer parameters remain excluded. The authors have not yet selected a project-wide open-source license.
 
 ## 2026-10-12 — Repository preparation
 
@@ -30,4 +34,4 @@ This record distinguishes research milestones from repository preparation. The r
 
 ## Next steps
 
-The [integration status](docs/INTEGRATION_STATUS.md) records the remaining full-model and optional-backend checks. A public release and project license are author decisions. No date is promised for distributing weights.
+The [integration status](docs/INTEGRATION_STATUS.md) records the remaining full-model and optional-backend checks. The project license remains an author decision. No date is promised for distributing weights.

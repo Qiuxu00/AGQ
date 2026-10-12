@@ -65,6 +65,6 @@ Running an upstream language-model example does not complete this VLA integratio
 
 Only the first three levels belong to this local repository build's checks. Historical EXP019 and performance results remain historical evidence at their respective levels; they are not upgraded into fresh execution tests by packaging them here.
 
-## Before a public release
+## Repository visibility and license
 
-The author still needs to choose the project's license and approve publication. Existing upstream licenses continue to apply to third-party components. The repository excludes model checkpoints and learned quantizer parameters; making the code public would not make those weights available.
+The repository is publicly accessible; the author still needs to choose the project's license. Existing upstream licenses continue to apply to third-party components. The repository excludes model checkpoints and learned quantizer parameters; public access to the code does not make those weights available.

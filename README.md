@@ -27,6 +27,7 @@ AGQ assigns precision according to **action sensitivity and weight recovery cost
 
 ## News
 
+- **2026-10-12 — Repository now public.** Code, documentation, and aggregate results are publicly accessible. Model weights and learned quantizer parameters remain excluded; the project license is pending.
 - **2026-10-12 — Paper figures added.** All four figures and both complete result tables now appear on this page, with a [source and data index](docs/PAPER_FIGURES.md).
 - **2026-10-12 — Code and examples.** Added W1–W4 calibration-to-execution components, official HQQ/Quanto matrix adapters, and **74 passing local tests**. [Start here](docs/GETTING_STARTED.md).
 - **2026-10-12 — Thirteen cases.** Organized precision, allocation, task-family, failure, and resource analyses with machine-readable results. [Explore the cases](docs/CASES.md).
@@ -122,4 +123,4 @@ The AGQ demo runs calibration, packing, lossless coding, and block-wise executio
 
 AGQ builds on [OpenVLA-OFT](https://github.com/moojink/openvla-oft) and LIBERO. Its calibration follows OmniQuant's clipping and block reconstruction ideas. See [official references](docs/REFERENCES.md) and [third-party notices](THIRD_PARTY_NOTICES.md) for upstream work and attribution.
 
-The repository remains private; the manuscript is recorded as unpublished, and the project license awaits an author decision.
+The repository is publicly accessible; the manuscript is recorded as unpublished, and the project license awaits an author decision.
